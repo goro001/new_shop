@@ -19,6 +19,7 @@
 
     <!-- Styles -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      @toastr_css
 </head>
 <body>
     <div id="app">
@@ -81,4 +82,5 @@
         </main>
     </div>
 </body>
+@toastr_js @toastr_render
 </html>

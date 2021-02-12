@@ -8,6 +8,10 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ConfirmRegister;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class RegisterController extends Controller
 {
@@ -69,5 +73,19 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+    public function register(Request $request){
+        $validator = $this->validator($request->all());
+        if ($validator->fails())
+        {
+            return Redirect::back()
+                ->withErrors($validator) // send back all errors to the login form
+                ->withInput();
+        } else {
+            $data = $request->all();
+            $user = $this->create($data);
+            Mail::to($request->email)->send(new ConfirmRegister($user));
+            return Redirect::to('/login');
+        }
     }
 }
