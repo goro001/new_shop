@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+
+
 
 class VerificationController extends Controller
 {
@@ -35,8 +40,17 @@ class VerificationController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('signed')->only('verify');
-        $this->middleware('throttle:6,1')->only('verify', 'resend');
+        // $this->middleware('auth');
+        // $this->middleware('signed')->only('verify');
+        // $this->middleware('throttle:6,1')->only('verify', 'resend');
+    }
+    public function verify(Request $request){
+        if ($request->get('id')){
+            $user = User::find($request->get('id'));
+            if (!$user->hasVerifiedEmail()) {
+                $user->markEmailAsVerified();
+            }
+        }
+        return Redirect::to('/login');
     }
 }
