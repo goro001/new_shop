@@ -28,22 +28,5 @@ class ConfirmRegister extends Mailable
     return $this->view('mail.confirm')->subject('Confirm');
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
