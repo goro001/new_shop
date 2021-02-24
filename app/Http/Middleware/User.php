@@ -18,6 +18,13 @@ class User
      */
     public function handle(Request $request, Closure $next)
     {
-        return $next($request);
+        if (Auth::check()) {
+            if ( Auth::user()->role == \App\Models\User::USER) {
+                return $next($request);
+            } else {
+                return Redirect::to(route('admin.home'));
+            }
+        }
+        return Redirect::to('/login');
     }
 }
