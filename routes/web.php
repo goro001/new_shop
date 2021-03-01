@@ -27,4 +27,5 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','as' => 'admin.','middl
 	Route::get('/user', 'UserController@index')->name('user');
 	Route::get('/user/block/{id}', 'UserController@block')->name('user.block');
     Route::get('/user/unblock/{id}', 'UserController@unblock')->name('user.unblock');
+	Route::get('/categories', 'CategoryController@index')->name('categories');
 });
