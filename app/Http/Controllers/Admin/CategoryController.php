@@ -14,5 +14,21 @@ class CategoryController extends Controller
 	public function index() {
 		$categories = Category::all();
 		return view('admin.category.index',compact('categories'));
+    }	
+
+    public function delete($id) {
+
+    }	
+    
+    public function update() {
+		// return view('admin.category.index',compact('categories'));
+    }
+
+   public function create() {
+		return view('admin.category.create',);
+    }   
+
+    public function store(Request $request) {
+    	
     }
 }

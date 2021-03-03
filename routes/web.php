@@ -28,4 +28,12 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','as' => 'admin.','middl
 	Route::get('/user/block/{id}', 'UserController@block')->name('user.block');
     Route::get('/user/unblock/{id}', 'UserController@unblock')->name('user.unblock');
 	Route::get('/categories', 'CategoryController@index')->name('categories');
+
+	Route::get('/categories/delete/{id}', 'CategoryController@delete')->name('categories.delete');
+
+    Route::get('/categories/update/{id}', 'CategoryController@update')->name('categories.update');  
+
+    Route::get('/category/create', 'CategoryController@create')->name('category.create'); 
+
+    Route::post('/category/store', 'CategoryController@store')->name('category.store');
 });
