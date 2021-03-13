@@ -19,8 +19,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/confirm', 'Auth\VerificationController@verify')->name('confirm');
 Route::group(['namespace' => 'User','middleware' => ['user']], function () {
-  Route::get('/home','HomeController@index')->name('home');
+  Route::get('/home','ProductController@index')->name('home');
 });
+
 Route::group(['prefix' => 'admin','namespace' => 'Admin','as' => 'admin.','middleware' => ['admin']],
 	function () {
     Route::get('/home','HomeController@index')->name('home');
@@ -35,5 +36,6 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','as' => 'admin.','middl
 
     Route::get('/category/create', 'CategoryController@create')->name('category.create'); 
 
-    Route::post('/category/store', 'CategoryController@store')->name('category.store');
+    Route::post('/category/store', 'CategoryController@store')->name('category.store');    
+    Route::post('/category/edit/{id}', 'CategoryController@edit')->name('category.edit');
 });
