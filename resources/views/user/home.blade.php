@@ -28,4 +28,29 @@
         </div>
     </div>
 
+    
+<script src="https://js.stripe.com/v3/"></script>
+    <script type="text/javascript">
+        // Create an instance of the Stripe object with your publishable API key
+        $('.buyShop').click(function() {
+            let id= $(this).data('id');
+            var stripe = Stripe('pk_test_51IVckTGKtYPBIToUVDJ70turWLfDE7jK3swc4Hlax5qiC7kVzzLderkGVliXrnMR8Q8YKyU1bSk6UrVr2CEW6Nv5001Nd07ofU');
+            $.ajax({
+                url: '/payment',
+                type: 'post',
+                data:{id:id},
+                headers: {
+                    "X-CSRF-Token": $('meta[name=csrf-token]').attr('content')
+                },
+                success:function (r) {
+                    if (r.status) {
+                        return stripe.redirectToCheckout({ sessionId: r.id });
+                    } else {
+                        alert(r.data.id[0])
+                    }
+                }
+            })
+        });
+    </script>
+
 @endsection

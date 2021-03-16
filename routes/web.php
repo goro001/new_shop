@@ -20,6 +20,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/confirm', 'Auth\VerificationController@verify')->name('confirm');
 Route::group(['namespace' => 'User','middleware' => ['user']], function () {
   Route::get('/home','ProductController@index')->name('home');
+  Route::post('/payment', 'PaymentController@payment')->name('payment');
+  Route::get('/payment/success/{id}','PaymentController@success')->name('success');
+  Route::get('/payment/cancel/','PaymentController@cancel')->name('cancel');
+
 });
 
 Route::group(['prefix' => 'admin','namespace' => 'Admin','as' => 'admin.','middleware' => ['admin']],
