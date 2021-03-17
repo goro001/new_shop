@@ -23,6 +23,11 @@ Route::group(['namespace' => 'User','middleware' => ['user']], function () {
   Route::post('/payment', 'PaymentController@payment')->name('payment');
   Route::get('/payment/success/{id}','PaymentController@success')->name('success');
   Route::get('/payment/cancel/','PaymentController@cancel')->name('cancel');
+  Route::get('/myshop','ProductController@myshop')->name('myshop');
+  Route::get('/create','ProductController@create')->name('create');
+  Route::post('/store','ProductController@store')->name('product.store');
+  Route::get('/my_product','ProductController@my_product')->name('my_product');
+  Route::get('/edit','ProductController@edit')->name('product.edit');
 
 });
 

@@ -21,11 +21,14 @@ class Shop extends Model
 
 
    	public function Product(){
-        return $this->belongsTo(Product::class,'product_id');
+        return $this->belongsTo(Product::class,'product_id','id');
     }
 
 
     public function User(){
         return $this->belongsTo(User::class,'user_id');
     }
+
+
+
 }
