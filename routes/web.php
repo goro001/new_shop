@@ -27,7 +27,8 @@ Route::group(['namespace' => 'User','middleware' => ['user']], function () {
   Route::get('/create','ProductController@create')->name('create');
   Route::post('/store','ProductController@store')->name('product.store');
   Route::get('/my_product','ProductController@my_product')->name('my_product');
-  Route::get('/edit','ProductController@edit')->name('product.edit');
+  Route::get('/edit/{id}','ProductController@edit')->name('product.edit');
+  Route::post('/update/{id}','ProductController@update')->name('product.update');
 
 });
 

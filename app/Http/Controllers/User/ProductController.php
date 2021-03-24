@@ -64,11 +64,45 @@ class ProductController extends Controller
     }
 
 
-    public function edit(){
-    	$id=Auth::id();
-    	$products = Product::where(['user_id' => $id])->get();
+    public function edit($id){
+    	$user_id=Auth::id();
+    	$product = Product::where(['user_id' => $user_id, 'id' =>$id])->first();
+        $categories = Category::all();
+        return view('user.edit',compact('product','categories'));
+
     	
-        return view('user.edit',compact('products'));
+    }
+    public function update(Request $request, $id){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string:max:255',
+            'image' => 'nullable|file|mimes:jpeg,jpg,png,gif|max:10000',
+            'category' => 'required|exists:categories,id',
+            'price' => 'required|numeric|min:1',
+            'description' => 'required|string',
+        ]);
+        if ($validator->fails())
+        {
+            toastr()->error('sxal');
+            return Redirect::back()
+                ->withErrors($validator)
+                ->withInput();
+        } else {
+            $user_id = Auth::id();
+            $product = Product::where(['user_id' => $user_id,'id' => $id])->first();
+            $product->name = $request->input('name');
+            $product->price = $request->input('price');
+            $product->description = $request->input('description');
+            $product->category_id = $request->input('category');
+            $product->user_id = $user_id;
+            if ($request->has('image')) {
+                $image = $request->file('image');
+                $product->image = Storage::disk('public')->put('shop', $image);
+            }
+            $product->save();
+            toastr()->success('tarmacvec');
+            return Redirect::to(route('my-product'));
+        }
+
     }
 
 }
